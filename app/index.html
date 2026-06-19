@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Karpathy OKF Wiki Lab</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f8f5;
+        --surface: #ffffff;
+        --surface-2: #eef3f0;
+        --ink: #19201d;
+        --muted: #5f6d68;
+        --line: #d7ded8;
+        --green: #1f7a55;
+        --blue: #235e91;
+        --red: #b74338;
+        --gold: #8b6f1d;
+        --shadow: 0 8px 24px rgba(34, 43, 39, 0.09);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #111513;
+          --surface: #1b211e;
+          --surface-2: #242d29;
+          --ink: #eef2ed;
+          --muted: #a9b7b1;
+          --line: #35413b;
+          --green: #52b788;
+          --blue: #80b7e8;
+          --red: #e07768;
+          --gold: #d8bd55;
+          --shadow: none;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        letter-spacing: 0;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      .shell {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        min-height: 100vh;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.2;
+      }
+
+      .stats {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .stat {
+        min-width: 84px;
+        padding: 6px 8px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface-2);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 16px;
+      }
+
+      .stat span {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: minmax(260px, 320px) minmax(360px, 1fr) minmax(280px, 360px);
+        min-height: 0;
+      }
+
+      aside,
+      section {
+        min-width: 0;
+        min-height: 0;
+        border-right: 1px solid var(--line);
+      }
+
+      aside:last-child {
+        border-right: 0;
+      }
+
+      .panel {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        background: var(--surface);
+      }
+
+      .panel-head {
+        display: grid;
+        gap: 8px;
+        padding: 14px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .panel-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .filters {
+        display: grid;
+        grid-template-columns: 1fr 116px;
+        gap: 8px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--ink);
+      }
+
+      input,
+      select {
+        height: 36px;
+        padding: 0 10px;
+      }
+
+      textarea {
+        min-height: 156px;
+        resize: vertical;
+        padding: 10px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .tag-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .chip,
+      button {
+        height: 32px;
+        padding: 0 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface-2);
+        color: var(--ink);
+        cursor: pointer;
+      }
+
+      button:hover,
+      .chip:hover,
+      .row:hover {
+        border-color: var(--green);
+      }
+
+      .chip.active {
+        background: var(--green);
+        border-color: var(--green);
+        color: #fff;
+      }
+
+      .list {
+        overflow: auto;
+        padding: 10px;
+      }
+
+      .row {
+        width: 100%;
+        height: auto;
+        min-height: 74px;
+        display: grid;
+        gap: 7px;
+        margin-bottom: 8px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        text-align: left;
+      }
+
+      .row.active {
+        border-color: var(--green);
+        box-shadow: inset 3px 0 0 var(--green);
+      }
+
+      .row-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .row-title strong {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .badge {
+        flex: 0 0 auto;
+        padding: 3px 7px;
+        border-radius: 999px;
+        color: #fff;
+        background: var(--blue);
+        font-size: 11px;
+      }
+
+      .badge.source {
+        background: var(--green);
+      }
+
+      .badge.index,
+      .badge.note {
+        background: var(--gold);
+      }
+
+      .path,
+      .muted {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.28;
+      }
+
+      .workspace {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        min-height: 0;
+        background: var(--bg);
+      }
+
+      .toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .graph-wrap {
+        position: relative;
+        min-height: 360px;
+        padding: 14px;
+      }
+
+      canvas {
+        width: 100%;
+        height: 100%;
+        min-height: 360px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .detail {
+        overflow: auto;
+        padding: 14px;
+      }
+
+      .detail-box {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 12px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+      }
+
+      .kv {
+        display: grid;
+        grid-template-columns: 92px minmax(0, 1fr);
+        gap: 8px;
+        font-size: 13px;
+      }
+
+      .kv span:first-child {
+        color: var(--muted);
+      }
+
+      .links {
+        display: grid;
+        gap: 6px;
+      }
+
+      a {
+        color: var(--blue);
+        text-decoration: none;
+        overflow-wrap: anywhere;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .draft-grid {
+        display: grid;
+        gap: 8px;
+      }
+
+      .empty,
+      .error {
+        margin: 14px;
+        padding: 12px;
+        border-radius: 8px;
+      }
+
+      .empty {
+        border: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .error {
+        border: 1px solid var(--red);
+        color: var(--red);
+        background: color-mix(in srgb, var(--red) 9%, transparent);
+      }
+
+      @media (max-width: 980px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+
+        aside,
+        section {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .list {
+          max-height: 300px;
+        }
+
+        .detail {
+          max-height: none;
+        }
+      }
+
+      @media (max-width: 520px) {
+        header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .stats,
+        .filters,
+        .toolbar {
+          width: 100%;
+        }
+
+        .filters,
+        .toolbar {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .stat {
+          flex: 1 1 90px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <h1>Karpathy OKF Wiki Lab</h1>
+        <div class="stats" aria-label="Knowledge base statistics">
+          <div class="stat"><strong id="nodeCount">0</strong><span>nodes</span></div>
+          <div class="stat"><strong id="linkCount">0</strong><span>links</span></div>
+          <div class="stat"><strong id="tagCount">0</strong><span>tags</span></div>
+        </div>
+      </header>
+
+      <main>
+        <aside class="panel" aria-label="Knowledge entries">
+          <div class="panel-head">
+            <div class="panel-title">
+              <h2>Entries</h2>
+              <button id="resetButton" type="button" title="Reset filters">Reset</button>
+            </div>
+            <div class="filters">
+              <input id="searchInput" type="search" placeholder="Search title, tag, path" autocomplete="off" />
+              <select id="typeFilter" aria-label="Type filter">
+                <option value="">All types</option>
+              </select>
+            </div>
+            <div id="tagStrip" class="tag-strip" aria-label="Tag filters"></div>
+          </div>
+          <div id="entryList" class="list"></div>
+        </aside>
+
+        <section class="workspace" aria-label="Knowledge graph">
+          <div class="toolbar">
+            <h2>Graph</h2>
+            <span id="resultSummary" class="muted">0 visible</span>
+          </div>
+          <div class="graph-wrap">
+            <canvas id="graphCanvas" width="900" height="620" aria-label="Knowledge graph canvas"></canvas>
+          </div>
+        </section>
+
+        <aside class="panel" aria-label="Entry details and management">
+          <div class="panel-head">
+            <div class="panel-title">
+              <h2>Detail</h2>
+              <button id="copyDraftButton" type="button" title="Copy draft frontmatter">Copy</button>
+            </div>
+          </div>
+          <div class="detail">
+            <div id="detailBox" class="detail-box"></div>
+            <div class="detail-box">
+              <h2>Hygiene</h2>
+              <div id="hygieneList" class="links"></div>
+            </div>
+            <div class="detail-box">
+              <h2>Draft</h2>
+              <div class="draft-grid">
+                <input id="draftTitle" placeholder="Title" />
+                <select id="draftType">
+                  <option value="concept">concept</option>
+                  <option value="source">source</option>
+                  <option value="note">note</option>
+                  <option value="question">question</option>
+                </select>
+                <input id="draftTags" placeholder="tags, comma separated" />
+                <textarea id="draftOutput" spellcheck="false"></textarea>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script>
+      const state = {
+        data: { nodes: [], links: [], stats: { tag_counts: {}, type_counts: {} } },
+        visible: [],
+        selectedId: "",
+        tag: "",
+        positions: new Map(),
+      };
+
+      const typeColor = {
+        index: "#8b6f1d",
+        concept: "#235e91",
+        source: "#1f7a55",
+        note: "#8b6f1d",
+        question: "#b74338",
+      };
+
+      const el = (id) => document.getElementById(id);
+      const byId = (id) => state.data.nodes.find((node) => node.id === id);
+      const escapeHtml = (value) =>
+        String(value ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+
+      function initControls() {
+        el("searchInput").addEventListener("input", render);
+        el("typeFilter").addEventListener("change", render);
+        el("resetButton").addEventListener("click", () => {
+          el("searchInput").value = "";
+          el("typeFilter").value = "";
+          state.tag = "";
+          render();
+        });
+        el("draftTitle").addEventListener("input", updateDraft);
+        el("draftType").addEventListener("change", updateDraft);
+        el("draftTags").addEventListener("input", updateDraft);
+        el("copyDraftButton").addEventListener("click", async () => {
+          const text = el("draftOutput").value;
+          if (navigator.clipboard && text) await navigator.clipboard.writeText(text);
+        });
+        window.addEventListener("resize", drawGraph);
+        el("graphCanvas").addEventListener("click", selectFromCanvas);
+      }
+
+      function populateFilters() {
+        const typeFilter = el("typeFilter");
+        Object.keys(state.data.stats.type_counts || {})
+          .sort()
+          .forEach((type) => {
+            const option = document.createElement("option");
+            option.value = type;
+            option.textContent = type;
+            typeFilter.appendChild(option);
+          });
+        renderTags();
+      }
+
+      function renderTags() {
+        const strip = el("tagStrip");
+        strip.innerHTML = "";
+        Object.entries(state.data.stats.tag_counts || {})
+          .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+          .slice(0, 12)
+          .forEach(([tag, count]) => {
+            const chip = document.createElement("button");
+            chip.type = "button";
+            chip.className = "chip" + (state.tag === tag ? " active" : "");
+            chip.textContent = `${tag} ${count}`;
+            chip.addEventListener("click", () => {
+              state.tag = state.tag === tag ? "" : tag;
+              render();
+            });
+            strip.appendChild(chip);
+          });
+      }
+
+      function applyFilters() {
+        const query = el("searchInput").value.trim().toLowerCase();
+        const type = el("typeFilter").value;
+        state.visible = state.data.nodes.filter((node) => {
+          const haystack = [node.title, node.path, node.description, ...(node.tags || [])]
+            .join(" ")
+            .toLowerCase();
+          return (!query || haystack.includes(query)) && (!type || node.type === type) && (!state.tag || (node.tags || []).includes(state.tag));
+        });
+        if (!state.visible.some((node) => node.id === state.selectedId)) {
+          state.selectedId = state.visible[0]?.id || "";
+        }
+      }
+
+      function renderList() {
+        const list = el("entryList");
+        list.innerHTML = "";
+        if (!state.visible.length) {
+          list.innerHTML = '<div class="empty">No matching entries.</div>';
+          return;
+        }
+        state.visible.forEach((node) => {
+          const row = document.createElement("button");
+          row.type = "button";
+          row.className = "row" + (node.id === state.selectedId ? " active" : "");
+          row.innerHTML = `
+            <div class="row-title">
+              <strong>${escapeHtml(node.title)}</strong>
+              <span class="badge ${escapeHtml(node.type)}">${escapeHtml(node.type)}</span>
+            </div>
+            <div class="path">${escapeHtml(node.path)}</div>
+            <div class="muted">${escapeHtml((node.tags || []).join(", "))}</div>
+          `;
+          row.addEventListener("click", () => {
+            state.selectedId = node.id;
+            render();
+          });
+          list.appendChild(row);
+        });
+      }
+
+      function selectedLinks(node) {
+        if (!node) return { inbound: [], outbound: [] };
+        const outbound = state.data.links.filter((link) => link.source === node.id).map((link) => byId(link.target)).filter(Boolean);
+        const inbound = state.data.links.filter((link) => link.target === node.id).map((link) => byId(link.source)).filter(Boolean);
+        return { inbound, outbound };
+      }
+
+      function renderDetail() {
+        const node = byId(state.selectedId);
+        const box = el("detailBox");
+        if (!node) {
+          box.innerHTML = '<div class="empty">No entry selected.</div>';
+          return;
+        }
+        const links = selectedLinks(node);
+        box.innerHTML = `
+          <h2>${escapeHtml(node.title)}</h2>
+          <div class="kv"><span>Type</span><strong>${escapeHtml(node.type)}</strong></div>
+          <div class="kv"><span>Path</span><a href="../okf/${escapeHtml(node.path)}">${escapeHtml(node.path)}</a></div>
+          <div class="kv"><span>Resource</span>${node.resource && String(node.resource).startsWith("http") ? `<a href="${escapeHtml(node.resource)}">${escapeHtml(node.resource)}</a>` : `<span>${escapeHtml(node.resource || "local")}</span>`}</div>
+          <div class="kv"><span>Updated</span><span>${escapeHtml(node.timestamp || "")}</span></div>
+          <div class="kv"><span>Tags</span><span>${escapeHtml((node.tags || []).join(", "))}</span></div>
+          <p class="muted">${escapeHtml(node.description || node.excerpt || "")}</p>
+          <div class="links">
+            <strong>Outbound</strong>
+            ${links.outbound.map((item) => `<a href="#" data-node="${escapeHtml(item.id)}">${escapeHtml(item.title)}</a>`).join("") || '<span class="muted">None</span>'}
+          </div>
+          <div class="links">
+            <strong>Inbound</strong>
+            ${links.inbound.map((item) => `<a href="#" data-node="${escapeHtml(item.id)}">${escapeHtml(item.title)}</a>`).join("") || '<span class="muted">None</span>'}
+          </div>
+        `;
+        box.querySelectorAll("[data-node]").forEach((anchor) => {
+          anchor.addEventListener("click", (event) => {
+            event.preventDefault();
+            state.selectedId = anchor.dataset.node;
+            render();
+          });
+        });
+      }
+
+      function renderHygiene() {
+        const inboundCount = new Map(state.data.nodes.map((node) => [node.id, 0]));
+        state.data.links.forEach((link) => inboundCount.set(link.target, (inboundCount.get(link.target) || 0) + 1));
+        const orphanNodes = state.data.nodes.filter((node) => node.path !== "index.md" && (inboundCount.get(node.id) || 0) === 0);
+        const missingResource = state.data.nodes.filter((node) => !node.resource);
+        const sparseTags = state.data.nodes.filter((node) => !node.tags || node.tags.length < 2);
+        const list = el("hygieneList");
+        const lines = [
+          ["Orphans", orphanNodes.length],
+          ["Missing resource", missingResource.length],
+          ["Sparse tags", sparseTags.length],
+        ];
+        list.innerHTML = lines.map(([label, count]) => `<div class="kv"><span>${label}</span><strong>${count}</strong></div>`).join("");
+      }
+
+      function drawGraph() {
+        const canvas = el("graphCanvas");
+        const rect = canvas.getBoundingClientRect();
+        const ratio = window.devicePixelRatio || 1;
+        canvas.width = Math.max(320, Math.floor(rect.width * ratio));
+        canvas.height = Math.max(360, Math.floor(rect.height * ratio));
+        const ctx = canvas.getContext("2d");
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        const width = rect.width;
+        const height = rect.height;
+        ctx.clearRect(0, 0, width, height);
+        const visibleIds = new Set(state.visible.map((node) => node.id));
+        const nodes = state.visible;
+        state.positions.clear();
+        if (!nodes.length) return;
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const radius = Math.max(76, Math.min(width - 128, height - 140) / 2);
+        nodes.forEach((node, index) => {
+          const angle = (Math.PI * 2 * index) / nodes.length - Math.PI / 2;
+          const x = nodes.length === 1 ? centerX : centerX + Math.cos(angle) * radius;
+          const y = nodes.length === 1 ? centerY : centerY + Math.sin(angle) * radius;
+          state.positions.set(node.id, { x, y });
+        });
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue("--line").trim();
+        state.data.links.forEach((link) => {
+          if (!visibleIds.has(link.source) || !visibleIds.has(link.target)) return;
+          const from = state.positions.get(link.source);
+          const to = state.positions.get(link.target);
+          if (!from || !to) return;
+          ctx.beginPath();
+          ctx.moveTo(from.x, from.y);
+          ctx.lineTo(to.x, to.y);
+          ctx.stroke();
+        });
+        nodes.forEach((node) => {
+          const point = state.positions.get(node.id);
+          const isSelected = node.id === state.selectedId;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, isSelected ? 13 : 10, 0, Math.PI * 2);
+          ctx.fillStyle = typeColor[node.type] || "#5f6d68";
+          ctx.fill();
+          ctx.lineWidth = isSelected ? 4 : 2;
+          ctx.strokeStyle = isSelected ? "#111" : getComputedStyle(document.documentElement).getPropertyValue("--surface").trim();
+          ctx.stroke();
+          ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--ink").trim();
+          ctx.font = "12px system-ui, sans-serif";
+          const label = node.title.slice(0, width < 420 ? 10 : 22);
+          const labelX = Math.min(width - 12, Math.max(12, point.x));
+          ctx.textAlign = point.x < 90 ? "left" : point.x > width - 90 ? "right" : "center";
+          ctx.fillText(label, labelX, point.y + 30);
+        });
+      }
+
+      function selectFromCanvas(event) {
+        const rect = el("graphCanvas").getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        let nearest = null;
+        let nearestDistance = 24;
+        state.positions.forEach((point, id) => {
+          const distance = Math.hypot(point.x - x, point.y - y);
+          if (distance < nearestDistance) {
+            nearest = id;
+            nearestDistance = distance;
+          }
+        });
+        if (nearest) {
+          state.selectedId = nearest;
+          render();
+        }
+      }
+
+      function updateDraft() {
+        const title = el("draftTitle").value.trim() || "New Knowledge Entry";
+        const type = el("draftType").value;
+        const tags = el("draftTags").value.split(",").map((tag) => tag.trim()).filter(Boolean);
+        const baseDate = state.data.nodes[0]?.timestamp?.slice(0, 10) || new Date().toISOString().slice(0, 10);
+        const reviewDate = new Date(`${baseDate}T00:00:00Z`);
+        reviewDate.setUTCDate(reviewDate.getUTCDate() + 90);
+        const reviewAfter = reviewDate.toISOString().slice(0, 10);
+        el("draftOutput").value = [
+          "---",
+          `type: ${type}`,
+          `title: ${title}`,
+          "description: TODO",
+          "resource: local",
+          "tags:",
+          ...(tags.length ? tags : ["draft"]).map((tag) => `  - ${tag}`),
+          `timestamp: ${baseDate}T00:00:00+08:00`,
+          "status: draft",
+          "confidence: low",
+          `created: ${baseDate}`,
+          `last_reviewed: ${baseDate}`,
+          `review_after: ${reviewAfter}`,
+          "curator: TODO",
+          "sensitivity: local",
+          "provenance: human",
+          "related: []",
+          "---",
+          "",
+          `# ${title}`,
+          "",
+        ].join("\n");
+      }
+
+      function render() {
+        applyFilters();
+        renderTags();
+        renderList();
+        renderDetail();
+        renderHygiene();
+        el("resultSummary").textContent = `${state.visible.length} visible`;
+        drawGraph();
+        updateDraft();
+      }
+
+      async function main() {
+        initControls();
+        updateDraft();
+        try {
+          const response = await fetch("data.json", { cache: "no-store" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          state.data = await response.json();
+          state.visible = state.data.nodes || [];
+          state.selectedId = state.visible[0]?.id || "";
+          el("nodeCount").textContent = state.data.stats.node_count || 0;
+          el("linkCount").textContent = state.data.stats.link_count || 0;
+          el("tagCount").textContent = Object.keys(state.data.stats.tag_counts || {}).length;
+          populateFilters();
+          render();
+        } catch (error) {
+          el("entryList").innerHTML = `<div class="error">data.json unavailable: ${escapeHtml(error.message)}</div>`;
+          el("detailBox").innerHTML = '<div class="empty">No data loaded.</div>';
+        }
+      }
+
+      main();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "captured_at": "2026-06-19T13:25:36.859961+00:00",
+  "root": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab",
+  "results": [
+    {
+      "url": "http://127.0.0.1:8765/app/",
+      "viewport": {
+        "name": "desktop",
+        "width": 1280,
+        "height": 800
+      },
+      "path": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/visual/http-127.0.0.1-8765-app-desktop-1280x800.png",
+      "returncode": 0,
+      "stdout": "Navigating to http://127.0.0.1:8765/app/\nCapturing screenshot into /Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/visual/http-127.0.0.1-8765-app-desktop-1280x800.png",
+      "stderr": "",
+      "sha256": "bbd9fe2a9d2ea02891893ecef548b3dde73a39b76d333f16fa9f6b204ef98d63",
+      "baseline": {
+        "baseline": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/visual-baseline/http-127.0.0.1-8765-app-desktop-1280x800.png",
+        "status": "same",
+        "current_sha256": "bbd9fe2a9d2ea02891893ecef548b3dde73a39b76d333f16fa9f6b204ef98d63",
+        "baseline_sha256": "bbd9fe2a9d2ea02891893ecef548b3dde73a39b76d333f16fa9f6b204ef98d63"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:8765/app/",
+      "viewport": {
+        "name": "mobile",
+        "width": 375,
+        "height": 812
+      },
+      "path": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/visual/http-127.0.0.1-8765-app-mobile-375x812.png",
+      "returncode": 0,
+      "stdout": "Navigating to http://127.0.0.1:8765/app/\nCapturing screenshot into /Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/visual/http-127.0.0.1-8765-app-mobile-375x812.png",
+      "stderr": "",
+      "sha256": "8ab29e5f8b51bfd56e30dbbc5c78851f74215a7bf55c7f145817e4b8279e83cb",
+      "baseline": {
+        "baseline": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/visual-baseline/http-127.0.0.1-8765-app-mobile-375x812.png",
+        "status": "same",
+        "current_sha256": "8ab29e5f8b51bfd56e30dbbc5c78851f74215a7bf55c7f145817e4b8279e83cb",
+        "baseline_sha256": "8ab29e5f8b51bfd56e30dbbc5c78851f74215a7bf55c7f145817e4b8279e83cb"
+      }
+    }
+  ]
+}

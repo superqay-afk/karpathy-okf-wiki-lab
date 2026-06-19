@@ -1,0 +1,25 @@
+{
+  "output": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/app/data.json",
+  "stats": {
+    "node_count": 7,
+    "link_count": 15,
+    "tag_counts": {
+      "agents": 1,
+      "curation": 2,
+      "frontmatter": 1,
+      "hygiene": 1,
+      "knowledge-base": 2,
+      "llm-wiki": 3,
+      "log": 1,
+      "markdown": 2,
+      "okf": 3,
+      "source": 2
+    },
+    "type_counts": {
+      "concept": 3,
+      "index": 1,
+      "note": 1,
+      "source": 2
+    }
+  }
+}

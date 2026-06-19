@@ -1,0 +1,59 @@
+{
+  "feature": "Karpathy OKF Wiki Lab",
+  "created_at": "2026-06-19",
+  "current_phase": "launch",
+  "phases": {
+    "intake": {
+      "status": "done",
+      "owner": "Orchestrator",
+      "evidence": [
+        "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/00-intake.md"
+      ]
+    },
+    "discovery": {
+      "status": "done",
+      "owner": "Researcher",
+      "evidence": [
+        "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/01-discovery.md"
+      ]
+    },
+    "solution": {
+      "status": "done",
+      "owner": "Product Architect",
+      "evidence": [
+        "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/02-solution.md"
+      ]
+    },
+    "delivery": {
+      "status": "done",
+      "owner": "Builder",
+      "evidence": [
+        "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/03-delivery-plan.md"
+      ]
+    },
+    "test": {
+      "status": "done",
+      "owner": "QA Engineer",
+      "evidence": [
+        "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/04-test-plan.md",
+        "docs/product-delivery-artifacts/test-runs/manifest.json",
+        "docs/product-delivery-artifacts/visual/manifest.json"
+      ]
+    },
+    "launch": {
+      "status": "done",
+      "owner": "Release Manager",
+      "evidence": [
+        "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/05-launch-acceptance.md"
+      ]
+    }
+  },
+  "quality_gates": {
+    "discovery": true,
+    "solution": true,
+    "build": true,
+    "test": true,
+    "visual": true,
+    "release": true
+  }
+}

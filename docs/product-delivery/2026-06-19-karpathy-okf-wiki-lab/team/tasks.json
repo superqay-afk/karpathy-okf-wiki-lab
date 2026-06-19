@@ -1,0 +1,179 @@
+[
+  {
+    "id": "T-001",
+    "title": "Collect OKF, LLM Wiki, and source evidence",
+    "role": "Researcher",
+    "owner": "agent-researcher",
+    "status": "done",
+    "depends_on": [],
+    "artifact_paths": [
+      "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/01-discovery.md",
+      "okf/sources/karpathy-llm-wiki.md",
+      "okf/sources/google-okf.md"
+    ],
+    "handoff": "team/handoffs/T-001.md",
+    "created_at": "2026-06-19T13:01:13.102900+00:00",
+    "updated_at": "2026-06-19T13:23:44.228702+00:00",
+    "notes": "Research evidence accepted by Orchestrator"
+  },
+  {
+    "id": "T-002",
+    "title": "Design knowledge schema, tags, links, and hygiene rules",
+    "role": "Knowledge Curator",
+    "owner": "agent-knowledge-curator",
+    "status": "done",
+    "depends_on": [
+      "T-001"
+    ],
+    "artifact_paths": [
+      "config/wiki-schema.md",
+      "okf/index.md",
+      "okf/log.md",
+      "okf/concepts/knowledge-curation.md"
+    ],
+    "handoff": "team/handoffs/T-002.md",
+    "created_at": "2026-06-19T13:01:13.103200+00:00",
+    "updated_at": "2026-06-19T13:23:53.975507+00:00",
+    "notes": "Schema accepted by Orchestrator"
+  },
+  {
+    "id": "T-003",
+    "title": "Design knowledge management experience and acceptance criteria",
+    "role": "Product Architect",
+    "owner": "agent-product-architect",
+    "status": "done",
+    "depends_on": [
+      "T-001",
+      "T-002"
+    ],
+    "artifact_paths": [
+      "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/02-solution.md",
+      "README.md",
+      "AGENTS.md"
+    ],
+    "handoff": "team/handoffs/T-003.md",
+    "created_at": "2026-06-19T13:01:13.103570+00:00",
+    "updated_at": "2026-06-19T13:24:00.344718+00:00",
+    "notes": "Solution accepted by Orchestrator"
+  },
+  {
+    "id": "T-004",
+    "title": "Create implementation plan for ingest, lint, graph, and viewer",
+    "role": "Engineering Planner",
+    "owner": "agent-engineering-planner",
+    "status": "done",
+    "depends_on": [
+      "T-003"
+    ],
+    "artifact_paths": [
+      "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/03-delivery-plan.md",
+      "pdos.project.json"
+    ],
+    "handoff": "team/handoffs/T-004.md",
+    "created_at": "2026-06-19T13:01:13.103944+00:00",
+    "updated_at": "2026-06-19T13:24:07.328770+00:00",
+    "notes": "Plan accepted by Orchestrator"
+  },
+  {
+    "id": "T-005",
+    "title": "Implement scripts, OKF examples, and HTML viewer",
+    "role": "Builder",
+    "owner": "agent-builder",
+    "status": "done",
+    "depends_on": [
+      "T-004"
+    ],
+    "artifact_paths": [
+      "scripts/okf_core.py",
+      "scripts/okf_lint.py",
+      "scripts/build_graph.py",
+      "scripts/ingest.py",
+      "app/index.html",
+      "app/data.json",
+      "okf/index.md"
+    ],
+    "handoff": "team/handoffs/T-005.md",
+    "created_at": "2026-06-19T13:01:13.104244+00:00",
+    "updated_at": "2026-06-19T13:24:14.904019+00:00",
+    "notes": "Implementation accepted by QA and Orchestrator"
+  },
+  {
+    "id": "T-006",
+    "title": "Run OKF lint, graph, unit, integration, and regression tests",
+    "role": "QA Engineer",
+    "owner": "agent-qa-engineer",
+    "status": "done",
+    "depends_on": [
+      "T-005"
+    ],
+    "artifact_paths": [
+      "tests/test_okf_tools.py",
+      "tests/test_app_contract.py",
+      "docs/product-delivery-artifacts/test-runs/manifest.json"
+    ],
+    "handoff": "team/handoffs/T-006.md",
+    "created_at": "2026-06-19T13:01:13.104577+00:00",
+    "updated_at": "2026-06-19T13:24:21.953243+00:00",
+    "notes": "QA evidence accepted by Orchestrator"
+  },
+  {
+    "id": "T-007",
+    "title": "Capture HTML viewer screenshots and visual evidence",
+    "role": "Visual QA",
+    "owner": "agent-visual-qa",
+    "status": "done",
+    "depends_on": [
+      "T-005"
+    ],
+    "artifact_paths": [
+      "docs/product-delivery-artifacts/visual/manifest.json",
+      "docs/product-delivery-artifacts/visual/http-127.0.0.1-8765-app-desktop-1280x800.png",
+      "docs/product-delivery-artifacts/visual/http-127.0.0.1-8765-app-mobile-375x812.png",
+      "docs/product-delivery-artifacts/visual-baseline/http-127.0.0.1-8765-app-desktop-1280x800.png",
+      "docs/product-delivery-artifacts/visual-baseline/http-127.0.0.1-8765-app-mobile-375x812.png"
+    ],
+    "handoff": "team/handoffs/T-007.md",
+    "created_at": "2026-06-19T13:01:13.104903+00:00",
+    "updated_at": "2026-06-19T13:24:30.474725+00:00",
+    "notes": "Visual QA accepted by Orchestrator"
+  },
+  {
+    "id": "T-008",
+    "title": "Run ready/preflight and package local release evidence",
+    "role": "Release Manager",
+    "owner": "agent-release-manager",
+    "status": "done",
+    "depends_on": [
+      "T-006",
+      "T-007"
+    ],
+    "artifact_paths": [
+      "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/05-launch-acceptance.md",
+      "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/state.json",
+      "pdos.project.json"
+    ],
+    "handoff": "team/handoffs/T-008.md",
+    "created_at": "2026-06-19T13:01:13.105255+00:00",
+    "updated_at": "2026-06-19T13:24:37.870309+00:00",
+    "notes": "Local release package accepted by Orchestrator"
+  },
+  {
+    "id": "T-009",
+    "title": "Summarize PDOS gaps found during the knowledge project",
+    "role": "Self-Improvement Reviewer",
+    "owner": "agent-self-improvement-reviewer",
+    "status": "done",
+    "depends_on": [
+      "T-008"
+    ],
+    "artifact_paths": [
+      "docs/product-delivery/2026-06-19-karpathy-okf-wiki-lab/05-launch-acceptance.md",
+      "/Users/yikuaiqian/.codex/skills/product-delivery-os/scripts/pdos_tests.py",
+      "/Users/yikuaiqian/.codex/skills/product-delivery-os/scripts/pdos_team.py"
+    ],
+    "handoff": "team/handoffs/T-009.md",
+    "created_at": "2026-06-19T13:01:13.105539+00:00",
+    "updated_at": "2026-06-19T13:24:46.834406+00:00",
+    "notes": "Self-improvement accepted by Orchestrator"
+  }
+]

@@ -1,0 +1,190 @@
+{
+  "nodes": [
+    {
+      "id": "concepts/knowledge-curation.md",
+      "path": "concepts/knowledge-curation.md",
+      "title": "Knowledge Curation",
+      "type": "concept",
+      "description": "The practice of keeping a knowledge base accurate, linked, searchable, and useful for human and agent work.",
+      "resource": "local",
+      "tags": [
+        "knowledge-base",
+        "curation",
+        "hygiene"
+      ],
+      "timestamp": "2026-06-19T00:00:00+08:00",
+      "excerpt": "Knowledge Curation Knowledge curation is the ongoing work of turning raw information into durable, connected knowledge. Hygiene Checks - Required metadata exists. - Source links are preserved. - Internal links resolve. - Tags are specific e..."
+    },
+    {
+      "id": "concepts/llm-wiki.md",
+      "path": "concepts/llm-wiki.md",
+      "title": "LLM Wiki",
+      "type": "concept",
+      "description": "A file-based knowledge workspace that lets agents maintain durable, navigable context over time.",
+      "resource": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f",
+      "tags": [
+        "llm-wiki",
+        "agents",
+        "markdown"
+      ],
+      "timestamp": "2026-06-19T00:00:00+08:00",
+      "excerpt": "LLM Wiki The LLM Wiki pattern keeps knowledge in human-readable files so agents can search, edit, and cite durable context instead of relying only on transient chat history. Local Interpretation For this project, the wiki is a folder of Mar..."
+    },
+    {
+      "id": "concepts/open-knowledge-format.md",
+      "path": "concepts/open-knowledge-format.md",
+      "title": "Open Knowledge Format",
+      "type": "concept",
+      "description": "A Markdown and YAML-frontmatter format for portable knowledge packages.",
+      "resource": "https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md",
+      "tags": [
+        "okf",
+        "markdown",
+        "frontmatter"
+      ],
+      "timestamp": "2026-06-19T00:00:00+08:00",
+      "excerpt": "Open Knowledge Format Open Knowledge Format standardizes the idea of a portable knowledge package using a directory of Markdown files with structured frontmatter. Local Interpretation This project uses a compact OKF-compatible subset: - `ty..."
+    },
+    {
+      "id": "index.md",
+      "path": "index.md",
+      "title": "Karpathy OKF Wiki Lab Index",
+      "type": "index",
+      "description": "Entry point for a local LLM-wiki inspired OKF knowledge base.",
+      "resource": "local",
+      "tags": [
+        "okf",
+        "llm-wiki",
+        "knowledge-base"
+      ],
+      "timestamp": "2026-06-19T00:00:00+08:00",
+      "excerpt": "Karpathy OKF Wiki Lab This knowledge base experiments with a local, agent-maintained wiki. It uses Markdown as the durable substrate and a generated HTML viewer for search, graph exploration, and hygiene checks. Starting Points - [LLM Wiki]..."
+    },
+    {
+      "id": "log.md",
+      "path": "log.md",
+      "title": "Curation Log",
+      "type": "note",
+      "description": "Append-only log for notable knowledge-base changes and review decisions.",
+      "resource": "local",
+      "tags": [
+        "curation",
+        "log"
+      ],
+      "timestamp": "2026-06-19T00:00:00+08:00",
+      "excerpt": "Curation Log 2026-06-19 - Initialized local OKF profile and knowledge-base structure. - Added source pages for Karpathy LLM Wiki and Google OKF. - Added concept pages for LLM Wiki, OKF, and knowledge curation."
+    },
+    {
+      "id": "sources/google-okf.md",
+      "path": "sources/google-okf.md",
+      "title": "Google Open Knowledge Format",
+      "type": "source",
+      "description": "Public source reference for Google's OKF announcement and specification.",
+      "resource": "https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing",
+      "tags": [
+        "source",
+        "okf"
+      ],
+      "timestamp": "2026-06-19T00:00:00+08:00",
+      "excerpt": "Google Open Knowledge Format Google Cloud describes OKF as a standard format for exchanging agent knowledge using Markdown and structured metadata. Use In This Project This project uses OKF as the durable file format for knowledge entries a..."
+    },
+    {
+      "id": "sources/karpathy-llm-wiki.md",
+      "path": "sources/karpathy-llm-wiki.md",
+      "title": "Karpathy LLM Wiki Gist",
+      "type": "source",
+      "description": "Public source reference for the LLM Wiki pattern.",
+      "resource": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f",
+      "tags": [
+        "source",
+        "llm-wiki"
+      ],
+      "timestamp": "2026-06-19T00:00:00+08:00",
+      "excerpt": "Karpathy LLM Wiki Gist This page tracks the public gist that inspired the local LLM Wiki pattern in this project. Use In This Project The project adopts the core idea of keeping knowledge in simple text files that can be searched, linked, r..."
+    }
+  ],
+  "links": [
+    {
+      "source": "concepts/knowledge-curation.md",
+      "target": "concepts/llm-wiki.md"
+    },
+    {
+      "source": "concepts/knowledge-curation.md",
+      "target": "concepts/open-knowledge-format.md"
+    },
+    {
+      "source": "concepts/knowledge-curation.md",
+      "target": "log.md"
+    },
+    {
+      "source": "concepts/llm-wiki.md",
+      "target": "concepts/open-knowledge-format.md"
+    },
+    {
+      "source": "concepts/llm-wiki.md",
+      "target": "sources/karpathy-llm-wiki.md"
+    },
+    {
+      "source": "concepts/open-knowledge-format.md",
+      "target": "concepts/llm-wiki.md"
+    },
+    {
+      "source": "concepts/open-knowledge-format.md",
+      "target": "sources/google-okf.md"
+    },
+    {
+      "source": "index.md",
+      "target": "concepts/knowledge-curation.md"
+    },
+    {
+      "source": "index.md",
+      "target": "concepts/llm-wiki.md"
+    },
+    {
+      "source": "index.md",
+      "target": "concepts/open-knowledge-format.md"
+    },
+    {
+      "source": "index.md",
+      "target": "log.md"
+    },
+    {
+      "source": "log.md",
+      "target": "concepts/knowledge-curation.md"
+    },
+    {
+      "source": "log.md",
+      "target": "index.md"
+    },
+    {
+      "source": "sources/google-okf.md",
+      "target": "concepts/open-knowledge-format.md"
+    },
+    {
+      "source": "sources/karpathy-llm-wiki.md",
+      "target": "concepts/llm-wiki.md"
+    }
+  ],
+  "stats": {
+    "node_count": 7,
+    "link_count": 15,
+    "tag_counts": {
+      "agents": 1,
+      "curation": 2,
+      "frontmatter": 1,
+      "hygiene": 1,
+      "knowledge-base": 2,
+      "llm-wiki": 3,
+      "log": 1,
+      "markdown": 2,
+      "okf": 3,
+      "source": 2
+    },
+    "type_counts": {
+      "concept": 3,
+      "index": 1,
+      "note": 1,
+      "source": 2
+    }
+  }
+}

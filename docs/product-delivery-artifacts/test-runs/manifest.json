@@ -1,0 +1,41 @@
+{
+  "ran_at": "2026-06-19T14:00:28.418334+00:00",
+  "results": [
+    {
+      "name": "lint",
+      "command": "python3 scripts/okf_lint.py --root okf",
+      "returncode": 0,
+      "log": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/test-runs/lint.log"
+    },
+    {
+      "name": "typecheck",
+      "command": "python3 -m py_compile scripts/okf_core.py scripts/okf_lint.py scripts/build_graph.py scripts/ingest.py",
+      "returncode": 0,
+      "log": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/test-runs/typecheck.log"
+    },
+    {
+      "name": "unit",
+      "command": "python3 -m unittest discover -s tests",
+      "returncode": 0,
+      "log": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/test-runs/unit.log"
+    },
+    {
+      "name": "integration",
+      "command": "python3 scripts/build_graph.py --root okf --output app/data.json",
+      "returncode": 0,
+      "log": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/test-runs/integration.log"
+    },
+    {
+      "name": "e2e",
+      "command": "python3 -m unittest tests.test_app_contract",
+      "returncode": 0,
+      "log": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/test-runs/e2e.log"
+    },
+    {
+      "name": "build",
+      "command": "python3 scripts/build_graph.py --root okf --output app/data.json",
+      "returncode": 0,
+      "log": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/test-runs/build.log"
+    }
+  ]
+}

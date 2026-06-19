@@ -1,0 +1,53 @@
+{
+  "project_name": "Karpathy OKF Wiki Lab",
+  "commands": {
+    "lint": "python3 scripts/okf_lint.py --root okf",
+    "typecheck": "python3 -m py_compile scripts/okf_core.py scripts/okf_lint.py scripts/build_graph.py scripts/ingest.py",
+    "unit": "python3 -m unittest discover -s tests",
+    "integration": "python3 scripts/build_graph.py --root okf --output app/data.json",
+    "e2e": "python3 -m unittest tests.test_app_contract",
+    "build": "python3 scripts/build_graph.py --root okf --output app/data.json"
+  },
+  "visual": {
+    "urls": [
+      "http://127.0.0.1:8765/app/"
+    ],
+    "viewports": [
+      {
+        "name": "desktop",
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "name": "mobile",
+        "width": 375,
+        "height": 812
+      }
+    ],
+    "output_dir": "docs/product-delivery-artifacts/visual",
+    "baseline_dir": "docs/product-delivery-artifacts/visual-baseline"
+  },
+  "release": {
+    "remote": "origin",
+    "base_branch": "main",
+    "require_clean_worktree": false,
+    "require_ready_package": true,
+    "allow_push": false,
+    "allow_create_pr": false,
+    "allow_merge": false
+  },
+  "human_confirmation": {
+    "mode": "explicit-before-action",
+    "required_for": [
+      "send_external_message",
+      "publish_social_post",
+      "delete_or_overwrite_user_files",
+      "submit_approval",
+      "push_to_remote",
+      "create_pull_request",
+      "merge_pull_request",
+      "deploy_production",
+      "spend_money"
+    ]
+  }
+}
