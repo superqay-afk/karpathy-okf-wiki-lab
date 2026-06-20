@@ -1,12 +1,12 @@
 ---
 type: concept
-title: Knowledge Curation
-description: The practice of keeping a knowledge base accurate, linked, searchable, and useful for human and agent work.
+title: 知识整理
+description: 让知识库保持准确、可链接、可搜索，并能服务人与 Agent 协作的一套实践。
 resource: local
 tags:
-  - knowledge-base
-  - curation
-  - hygiene
+  - 知识库
+  - 整理
+  - 质量检查
 timestamp: 2026-06-19T00:00:00+08:00
 status: curated
 confidence: high
@@ -21,15 +21,15 @@ related:
   - open-knowledge-format.md
 ---
 
-# Knowledge Curation
+# 知识整理
 
-Knowledge curation is the ongoing work of turning raw information into durable, connected knowledge.
+知识整理是把原始信息持续转化为稳定、可连接、可复用知识的过程。它不只是“保存资料”，更强调来源、结构、链接、复查和后续可行动性。
 
-## Hygiene Checks
+## 质量检查
 
-- Required metadata exists.
-- Source links are preserved.
-- Internal links resolve.
-- Tags are specific enough to filter.
-- Orphan pages are surfaced for review.
-- Curation decisions are recorded in [the log](../log.md).
+- 必要元数据完整存在。
+- 外部来源链接被保留。
+- 内部 Markdown 链接可以正常解析。
+- 标签足够具体，便于过滤和组合检索。
+- 孤立页面会被暴露出来，进入后续评审。
+- 重要整理决策记录在[整理日志](../log.md)中。

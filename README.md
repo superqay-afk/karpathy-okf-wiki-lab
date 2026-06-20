@@ -1,10 +1,10 @@
-# Karpathy OKF Wiki Lab
+# Karpathy LLM Wiki 中文知识库
 
-A local, file-first knowledge base inspired by Andrej Karpathy's LLM Wiki pattern and Google's Open Knowledge Format.
+这是一个本地优先、文件优先的中文知识库，参考 Andrej Karpathy 的 LLM Wiki 思路和 Google 开放知识格式 OKF。
 
-The project keeps durable knowledge as Markdown files under `okf/`, builds a graph data file, and serves a lightweight HTML manager from `app/`.
+项目把长期知识保存在 `okf/` 目录下的 Markdown 文件中，再生成图谱数据，并通过 `app/` 下的轻量 HTML 页面进行可视化浏览和管理。
 
-## Quick Start
+## 快速开始
 
 ```bash
 python3 scripts/okf_lint.py --root okf
@@ -12,19 +12,19 @@ python3 scripts/build_graph.py --root okf --output app/data.json
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000/app/`.
+打开 `http://localhost:8000/app/`。
 
-## Project Shape
+## 项目结构
 
 ```text
-okf/                  OKF-style Markdown knowledge base
-app/index.html        Local visual manager
-app/data.json         Generated graph/search data
-scripts/              Ingest, lint, graph build tools
-tests/                Unit/integration tests
-docs/product-delivery PDOS delivery package
+okf/                  中文 OKF Markdown 知识库
+app/index.html        本地可视化管理页面
+app/data.json         生成后的图谱和搜索数据
+scripts/              导入、校验、图谱构建工具
+tests/                单元和集成测试
+docs/product-delivery PDOS 交付包
 ```
 
-## Design Rule
+## 设计原则
 
-Markdown is the source of truth. The HTML app is a viewer and management surface, not the database.
+Markdown 是知识源。HTML 页面只是查看和管理入口，不是数据库。

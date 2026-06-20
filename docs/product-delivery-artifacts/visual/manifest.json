@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-06-20T02:06:15.133126+00:00",
+  "captured_at": "2026-06-20T02:19:15.614021+00:00",
   "root": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab",
   "results": [
     {
@@ -13,12 +13,12 @@
       "returncode": 0,
       "stdout": "Navigating to http://127.0.0.1:8765/app/\nCapturing screenshot into /Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/visual/http-127.0.0.1-8765-app-desktop-1280x800.png",
       "stderr": "",
-      "sha256": "bbd9fe2a9d2ea02891893ecef548b3dde73a39b76d333f16fa9f6b204ef98d63",
+      "sha256": "3163afa5e195339e57e82e60e5d674992707b7557b54b03d83b7f5f19c3714f5",
       "baseline": {
         "baseline": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/visual-baseline/http-127.0.0.1-8765-app-desktop-1280x800.png",
         "status": "same",
-        "current_sha256": "bbd9fe2a9d2ea02891893ecef548b3dde73a39b76d333f16fa9f6b204ef98d63",
-        "baseline_sha256": "bbd9fe2a9d2ea02891893ecef548b3dde73a39b76d333f16fa9f6b204ef98d63"
+        "current_sha256": "3163afa5e195339e57e82e60e5d674992707b7557b54b03d83b7f5f19c3714f5",
+        "baseline_sha256": "3163afa5e195339e57e82e60e5d674992707b7557b54b03d83b7f5f19c3714f5"
       }
     },
     {
@@ -32,12 +32,12 @@
       "returncode": 0,
       "stdout": "Navigating to http://127.0.0.1:8765/app/\nCapturing screenshot into /Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/visual/http-127.0.0.1-8765-app-mobile-375x812.png",
       "stderr": "",
-      "sha256": "8ab29e5f8b51bfd56e30dbbc5c78851f74215a7bf55c7f145817e4b8279e83cb",
+      "sha256": "9aab66e2d7669f922870198c299527586a4fa8eaa1f8f5f5de8d13a35ed8c050",
       "baseline": {
         "baseline": "/Users/yikuaiqian/Documents/工作台/karpathy-okf-wiki-lab/docs/product-delivery-artifacts/visual-baseline/http-127.0.0.1-8765-app-mobile-375x812.png",
         "status": "same",
-        "current_sha256": "8ab29e5f8b51bfd56e30dbbc5c78851f74215a7bf55c7f145817e4b8279e83cb",
-        "baseline_sha256": "8ab29e5f8b51bfd56e30dbbc5c78851f74215a7bf55c7f145817e4b8279e83cb"
+        "current_sha256": "9aab66e2d7669f922870198c299527586a4fa8eaa1f8f5f5de8d13a35ed8c050",
+        "baseline_sha256": "9aab66e2d7669f922870198c299527586a4fa8eaa1f8f5f5de8d13a35ed8c050"
       }
     }
   ]

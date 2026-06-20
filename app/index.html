@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Karpathy OKF Wiki Lab</title>
+    <title>Karpathy LLM Wiki 中文知识库</title>
     <style>
       :root {
         color-scheme: light dark;
@@ -45,7 +45,7 @@
         min-height: 100vh;
         background: var(--bg);
         color: var(--ink);
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
         letter-spacing: 0;
       }
 
@@ -416,66 +416,66 @@
   <body>
     <div class="shell">
       <header>
-        <h1>Karpathy OKF Wiki Lab</h1>
-        <div class="stats" aria-label="Knowledge base statistics">
-          <div class="stat"><strong id="nodeCount">0</strong><span>nodes</span></div>
-          <div class="stat"><strong id="linkCount">0</strong><span>links</span></div>
-          <div class="stat"><strong id="tagCount">0</strong><span>tags</span></div>
+        <h1>Karpathy LLM Wiki 中文知识库</h1>
+        <div class="stats" aria-label="知识库统计">
+          <div class="stat"><strong id="nodeCount">0</strong><span>条目</span></div>
+          <div class="stat"><strong id="linkCount">0</strong><span>链接</span></div>
+          <div class="stat"><strong id="tagCount">0</strong><span>标签</span></div>
         </div>
       </header>
 
       <main>
-        <aside class="panel" aria-label="Knowledge entries">
+        <aside class="panel" aria-label="知识条目">
           <div class="panel-head">
             <div class="panel-title">
-              <h2>Entries</h2>
-              <button id="resetButton" type="button" title="Reset filters">Reset</button>
+              <h2>条目</h2>
+              <button id="resetButton" type="button" title="重置筛选">重置</button>
             </div>
             <div class="filters">
-              <input id="searchInput" type="search" placeholder="Search title, tag, path" autocomplete="off" />
-              <select id="typeFilter" aria-label="Type filter">
-                <option value="">All types</option>
+              <input id="searchInput" type="search" placeholder="搜索标题、标签、路径" autocomplete="off" />
+              <select id="typeFilter" aria-label="类型筛选">
+                <option value="">全部类型</option>
               </select>
             </div>
-            <div id="tagStrip" class="tag-strip" aria-label="Tag filters"></div>
+            <div id="tagStrip" class="tag-strip" aria-label="标签筛选"></div>
           </div>
           <div id="entryList" class="list"></div>
         </aside>
 
-        <section class="workspace" aria-label="Knowledge graph">
+        <section class="workspace" aria-label="知识图谱">
           <div class="toolbar">
-            <h2>Graph</h2>
-            <span id="resultSummary" class="muted">0 visible</span>
+            <h2>图谱</h2>
+            <span id="resultSummary" class="muted">可见 0 条</span>
           </div>
           <div class="graph-wrap">
-            <canvas id="graphCanvas" width="900" height="620" aria-label="Knowledge graph canvas"></canvas>
+            <canvas id="graphCanvas" width="900" height="620" aria-label="知识图谱画布"></canvas>
           </div>
         </section>
 
-        <aside class="panel" aria-label="Entry details and management">
+        <aside class="panel" aria-label="条目详情和管理">
           <div class="panel-head">
             <div class="panel-title">
-              <h2>Detail</h2>
-              <button id="copyDraftButton" type="button" title="Copy draft frontmatter">Copy</button>
+              <h2>详情</h2>
+              <button id="copyDraftButton" type="button" title="复制草稿元数据">复制</button>
             </div>
           </div>
           <div class="detail">
             <div id="detailBox" class="detail-box"></div>
             <div class="detail-box">
-              <h2>Hygiene</h2>
+              <h2>质量检查</h2>
               <div id="hygieneList" class="links"></div>
             </div>
             <div class="detail-box">
-              <h2>Draft</h2>
+              <h2>新条目草稿</h2>
               <div class="draft-grid">
-                <input id="draftTitle" placeholder="Title" />
+                <input id="draftTitle" placeholder="标题" />
                 <select id="draftType">
-                  <option value="concept">concept</option>
-                  <option value="source">source</option>
-                  <option value="note">note</option>
-                  <option value="question">question</option>
+                  <option value="concept">概念</option>
+                  <option value="source">来源</option>
+                  <option value="note">笔记</option>
+                  <option value="question">问题</option>
                 </select>
-                <input id="draftTags" placeholder="tags, comma separated" />
+                <input id="draftTags" placeholder="标签，用英文逗号分隔" />
                 <textarea id="draftOutput" spellcheck="false"></textarea>
               </div>
             </div>
@@ -501,8 +501,21 @@
         question: "#b74338",
       };
 
+      const typeLabel = {
+        index: "索引",
+        concept: "概念",
+        source: "来源",
+        note: "笔记",
+        question: "问题",
+        project: "项目",
+        person: "人物",
+        pattern: "模式",
+      };
+
       const el = (id) => document.getElementById(id);
       const byId = (id) => state.data.nodes.find((node) => node.id === id);
+      const displayType = (type) => typeLabel[type] || type;
+      const displayResource = (resource) => (resource === "local" ? "本地" : resource || "本地");
       const escapeHtml = (value) =>
         String(value ?? "")
           .replace(/&/g, "&amp;")
@@ -538,7 +551,7 @@
           .forEach((type) => {
             const option = document.createElement("option");
             option.value = type;
-            option.textContent = type;
+            option.textContent = displayType(type);
             typeFilter.appendChild(option);
           });
         renderTags();
@@ -581,7 +594,7 @@
         const list = el("entryList");
         list.innerHTML = "";
         if (!state.visible.length) {
-          list.innerHTML = '<div class="empty">No matching entries.</div>';
+          list.innerHTML = '<div class="empty">没有匹配的条目。</div>';
           return;
         }
         state.visible.forEach((node) => {
@@ -591,7 +604,7 @@
           row.innerHTML = `
             <div class="row-title">
               <strong>${escapeHtml(node.title)}</strong>
-              <span class="badge ${escapeHtml(node.type)}">${escapeHtml(node.type)}</span>
+              <span class="badge ${escapeHtml(node.type)}">${escapeHtml(displayType(node.type))}</span>
             </div>
             <div class="path">${escapeHtml(node.path)}</div>
             <div class="muted">${escapeHtml((node.tags || []).join(", "))}</div>
@@ -615,25 +628,25 @@
         const node = byId(state.selectedId);
         const box = el("detailBox");
         if (!node) {
-          box.innerHTML = '<div class="empty">No entry selected.</div>';
+          box.innerHTML = '<div class="empty">还没有选中条目。</div>';
           return;
         }
         const links = selectedLinks(node);
         box.innerHTML = `
           <h2>${escapeHtml(node.title)}</h2>
-          <div class="kv"><span>Type</span><strong>${escapeHtml(node.type)}</strong></div>
-          <div class="kv"><span>Path</span><a href="../okf/${escapeHtml(node.path)}">${escapeHtml(node.path)}</a></div>
-          <div class="kv"><span>Resource</span>${node.resource && String(node.resource).startsWith("http") ? `<a href="${escapeHtml(node.resource)}">${escapeHtml(node.resource)}</a>` : `<span>${escapeHtml(node.resource || "local")}</span>`}</div>
-          <div class="kv"><span>Updated</span><span>${escapeHtml(node.timestamp || "")}</span></div>
-          <div class="kv"><span>Tags</span><span>${escapeHtml((node.tags || []).join(", "))}</span></div>
+          <div class="kv"><span>类型</span><strong>${escapeHtml(displayType(node.type))}</strong></div>
+          <div class="kv"><span>路径</span><a href="../okf/${escapeHtml(node.path)}">${escapeHtml(node.path)}</a></div>
+          <div class="kv"><span>来源</span>${node.resource && String(node.resource).startsWith("http") ? `<a href="${escapeHtml(node.resource)}">${escapeHtml(node.resource)}</a>` : `<span>${escapeHtml(displayResource(node.resource))}</span>`}</div>
+          <div class="kv"><span>更新时间</span><span>${escapeHtml(node.timestamp || "")}</span></div>
+          <div class="kv"><span>标签</span><span>${escapeHtml((node.tags || []).join(", "))}</span></div>
           <p class="muted">${escapeHtml(node.description || node.excerpt || "")}</p>
           <div class="links">
-            <strong>Outbound</strong>
-            ${links.outbound.map((item) => `<a href="#" data-node="${escapeHtml(item.id)}">${escapeHtml(item.title)}</a>`).join("") || '<span class="muted">None</span>'}
+            <strong>指向条目</strong>
+            ${links.outbound.map((item) => `<a href="#" data-node="${escapeHtml(item.id)}">${escapeHtml(item.title)}</a>`).join("") || '<span class="muted">无</span>'}
           </div>
           <div class="links">
-            <strong>Inbound</strong>
-            ${links.inbound.map((item) => `<a href="#" data-node="${escapeHtml(item.id)}">${escapeHtml(item.title)}</a>`).join("") || '<span class="muted">None</span>'}
+            <strong>被谁引用</strong>
+            ${links.inbound.map((item) => `<a href="#" data-node="${escapeHtml(item.id)}">${escapeHtml(item.title)}</a>`).join("") || '<span class="muted">无</span>'}
           </div>
         `;
         box.querySelectorAll("[data-node]").forEach((anchor) => {
@@ -653,9 +666,9 @@
         const sparseTags = state.data.nodes.filter((node) => !node.tags || node.tags.length < 2);
         const list = el("hygieneList");
         const lines = [
-          ["Orphans", orphanNodes.length],
-          ["Missing resource", missingResource.length],
-          ["Sparse tags", sparseTags.length],
+          ["孤立条目", orphanNodes.length],
+          ["缺少来源", missingResource.length],
+          ["标签偏少", sparseTags.length],
         ];
         list.innerHTML = lines.map(([label, count]) => `<div class="kv"><span>${label}</span><strong>${count}</strong></div>`).join("");
       }
@@ -735,7 +748,7 @@
       }
 
       function updateDraft() {
-        const title = el("draftTitle").value.trim() || "New Knowledge Entry";
+        const title = el("draftTitle").value.trim() || "新知识条目";
         const type = el("draftType").value;
         const tags = el("draftTags").value.split(",").map((tag) => tag.trim()).filter(Boolean);
         const baseDate = state.data.nodes[0]?.timestamp?.slice(0, 10) || new Date().toISOString().slice(0, 10);
@@ -746,17 +759,17 @@
           "---",
           `type: ${type}`,
           `title: ${title}`,
-          "description: TODO",
-          "resource: local",
+          "description: 待补充：用一句中文说明这个条目的价值",
+          "resource: 本地",
           "tags:",
-          ...(tags.length ? tags : ["draft"]).map((tag) => `  - ${tag}`),
+          ...(tags.length ? tags : ["草稿"]).map((tag) => `  - ${tag}`),
           `timestamp: ${baseDate}T00:00:00+08:00`,
           "status: draft",
           "confidence: low",
           `created: ${baseDate}`,
           `last_reviewed: ${baseDate}`,
           `review_after: ${reviewAfter}`,
-          "curator: TODO",
+          "curator: 待补充",
           "sensitivity: local",
           "provenance: human",
           "related: []",
@@ -773,7 +786,7 @@
         renderList();
         renderDetail();
         renderHygiene();
-        el("resultSummary").textContent = `${state.visible.length} visible`;
+        el("resultSummary").textContent = `可见 ${state.visible.length} 条`;
         drawGraph();
         updateDraft();
       }
@@ -793,8 +806,8 @@
           populateFilters();
           render();
         } catch (error) {
-          el("entryList").innerHTML = `<div class="error">data.json unavailable: ${escapeHtml(error.message)}</div>`;
-          el("detailBox").innerHTML = '<div class="empty">No data loaded.</div>';
+          el("entryList").innerHTML = `<div class="error">无法加载 data.json：${escapeHtml(error.message)}</div>`;
+          el("detailBox").innerHTML = '<div class="empty">还没有加载数据。</div>';
         }
       }
 
